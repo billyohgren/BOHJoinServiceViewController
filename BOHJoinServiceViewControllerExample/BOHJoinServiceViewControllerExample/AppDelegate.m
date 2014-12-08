@@ -27,7 +27,8 @@
                                         BLVLoginSignupProviderFacebook
                                                                                       options:options];
     
-    self.window.rootViewController = vc;
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:vc];
+    self.window.rootViewController = navVC;
     
     return YES;
 }
