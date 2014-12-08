@@ -16,7 +16,7 @@
 
 @protocol BOHJoinServiceViewControllerDelegate <NSObject>
 
-- (void)joinServiceViewController:(BOHJoinServiceViewController *)vc performedAction:(BLVLoginSignupAction)action parameters:(NSDictionary *)parameters;
+- (void)joinServiceViewController:(BOHJoinServiceViewController *)vc performedAction:(BOHJoinServiceAction)action parameters:(NSDictionary *)parameters;
 
 @end
 
@@ -27,7 +27,7 @@
 /**
     Initialize with one or more login providers.
  */
-- (instancetype)initWithProvider:(BLVLoginSignupProvider)provider options:(BOHJoinServiceOptions *)options;
+- (instancetype)initWithProvider:(BOHJoinServiceProvider)provider options:(BOHJoinServiceOptions *)options;
 
 /**
     Whether or not to show a loader on top of the current screen.

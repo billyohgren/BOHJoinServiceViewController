@@ -10,7 +10,7 @@
 
 @interface BOHJoinServiceCellTextField ()
 
-@property (nonatomic, assign) UIEdgeInsets textInset;
+@property (nonatomic, assign) UIEdgeInsets           textInset;
 
 @end
 
@@ -39,20 +39,36 @@
 
 @end
 
+@interface BOHJoinServiceCell ()
+
+@property (nonatomic, assign) BOHJoinServiceCellType type;
+
+@end
+
 @implementation BOHJoinServiceCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+- (instancetype)initWithType:(BOHJoinServiceCellType)type {
+    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     if (self) {
-        [self.contentView addSubview:self.textField];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        _type = type;
+        if (type == BOHJoinServiceCellTypeButton) {
+            [self.contentView addSubview:self.button];
+        } else {
+            [self.contentView addSubview:self.textField];
+        }
     }
     return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.textField.bounds = self.contentView.bounds;
+    if (self.type == BOHJoinServiceCellTypeButton) {
+        self.button.bounds = self.contentView.bounds;
+    } else {
+        self.textField.bounds = self.contentView.bounds;
+    }
+    
 }
 
 #pragma mark - Properties
@@ -60,9 +76,19 @@
 - (BOHJoinServiceCellTextField *)textField {
     if (!_textField) {
         _textField = [[BOHJoinServiceCellTextField alloc] initWithFrame:self.contentView.bounds];
-        [_textField setAutoresizingMask:(UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth)];
+        _textField.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     }
     return _textField;
 }
 
+- (void)setButton:(BOHJoinServiceButton *)button {
+    if (_button != button) {
+        if (_button.superview) {
+            [_button removeFromSuperview];
+        }
+        _button = button;
+        _button.bounds = self.contentView.bounds;
+        [self.contentView addSubview:_button];
+    }
+}
 @end

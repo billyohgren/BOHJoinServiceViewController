@@ -8,21 +8,37 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, BLVLoginSignupProvider) {
-    BLVLoginSignupProviderEmail     = (1 << 0),
-    BLVLoginSignupProviderFacebook  = (1 << 1),
-    BLVLoginSignupProviderTwitter   = (1 << 2)
+typedef NS_ENUM(NSInteger, BOHJoinServiceProvider) {
+    BOHJoinServiceProviderEmail     = (1 << 0),
+    BOHJoinServiceProviderFacebook  = (1 << 1),
+    BOHJoinServiceProviderTwitter   = (1 << 2)
 };
 
-typedef NS_ENUM(NSInteger, BLVLoginSignupAction) {
-    BLVLoginSignupActionLoginWithEmail,
-    BLVLoginSignupActionLoginWithFacebook,
-    BLVLoginSignupActionLoginWithTwitter,
-    BLVLoginSignupActionLoginForgotPassword,
-    BLVLoginSignupActionSignupWithEmail,
-    BLVLoginSignupActionSignupWithFacebook,
-    BLVLoginSignupActionSignupWithTwitter,
-    BLVLoginSignupActionSkip
+typedef NS_ENUM(NSInteger, BOHJoinServiceAction) {
+    BOHJoinServiceActionLoginWithEmail,
+    BOHJoinServiceActionLoginWithFacebook,
+    BOHJoinServiceActionLoginWithTwitter,
+    BOHJoinServiceActionLoginForgotPassword,
+    BOHJoinServiceActionSignupWithEmail,
+    BOHJoinServiceActionSignupWithFacebook,
+    BOHJoinServiceActionSignupWithTwitter,
+    BOHJoinServiceActionSkip
+};
+
+typedef NS_ENUM(NSInteger, BOHJoinServiceSectionType) {
+    BOHJoinServiceSectionTypeFacebook,
+    BOHJoinServiceSectionTypeTwitter,
+    BOHJoinServiceSectionTypeEmail
+};
+
+typedef NS_ENUM(NSInteger, BOHJoinServiceRowType) {
+    BOHJoinServiceRowTypeFacebookButton,
+    BOHJoinServiceRowTypeTwitterButton,
+    BOHJoinServiceRowTypeEmailLoginButton,
+    BOHJoinServiceRowTypeEmailSignupButton,
+    BOHJoinServiceRowTypeName,
+    BOHJoinServiceRowTypeEmail,
+    BOHJoinServiceRowTypePassword
 };
 
 /**

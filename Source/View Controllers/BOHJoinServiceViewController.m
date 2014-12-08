@@ -18,8 +18,8 @@
     BOHLoginViewControllerDelegate
 >
 
-@property (nonatomic, assign) BLVLoginSignupProvider  provider;
-@property (nonatomic, strong) BOHJoinServiceOptions *options;
+@property (nonatomic, assign) BOHJoinServiceProvider  provider;
+@property (nonatomic, strong) BOHJoinServiceOptions   *options;
 
 @property (nonatomic, strong) BOHSignupViewController *signupViewController;
 @property (nonatomic, strong) BOHLoginViewController  *loginViewController;
@@ -37,7 +37,7 @@
 
 @implementation BOHJoinServiceViewController
 
-- (instancetype)initWithProvider:(BLVLoginSignupProvider)provider options:(BOHJoinServiceOptions *)options {
+- (instancetype)initWithProvider:(BOHJoinServiceProvider)provider options:(BOHJoinServiceOptions *)options {
     self = [super init];
     if (self) {
         _provider = provider;
@@ -197,14 +197,14 @@
 - (void)skipAction:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(joinServiceViewController:performedAction:parameters:)]) {
         [self.delegate joinServiceViewController:self
-                                 performedAction:BLVLoginSignupActionSkip
+                                 performedAction:BOHJoinServiceActionSkip
                                       parameters:nil];
     }
 }
 
 #pragma mark - BLVSignupViewControllerDelegate
 
-- (void)signupViewController:(BOHSignupViewController *)vc didPerformAction:(BLVLoginSignupAction)action parameters:(NSDictionary *)parameters{
+- (void)signupViewController:(BOHSignupViewController *)vc didPerformAction:(BOHJoinServiceAction)action parameters:(NSDictionary *)parameters{
     if (self.delegate && [self.delegate respondsToSelector:@selector(joinServiceViewController:performedAction:parameters:)]) {
         [self.delegate joinServiceViewController:self
                                  performedAction:action
@@ -214,7 +214,7 @@
 
 #pragma mark - BLVLoginViewControllerDelegate
 
-- (void)loginViewController:(BOHSignupViewController *)vc didPerformAction:(BLVLoginSignupAction)action parameters:(NSDictionary *)parameters {
+- (void)loginViewController:(BOHSignupViewController *)vc didPerformAction:(BOHJoinServiceAction)action parameters:(NSDictionary *)parameters {
     if (self.delegate && [self.delegate respondsToSelector:@selector(joinServiceViewController:performedAction:parameters:)]) {
         [self.delegate joinServiceViewController:self
                                  performedAction:action

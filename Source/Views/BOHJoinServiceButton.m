@@ -20,6 +20,8 @@
     self = [super init];
     if (self) {
         _type = type;
+        self.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+        [self setupButtonWithType:_type];
     }
     return self;
 }
@@ -44,15 +46,15 @@
 #pragma mark - Style methods
 
 - (void)applyDefaultStyle {
-    
+    self.backgroundColor = [UIColor blueColor];
 }
 
 - (void)applyFacebookStyle {
-    
+    self.backgroundColor = [UIColor redColor];
 }
 
 - (void)applyTwitterStyle {
-    
+    self.backgroundColor = [UIColor greenColor];
 }
 
 @end

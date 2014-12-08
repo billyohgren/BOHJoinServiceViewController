@@ -14,13 +14,13 @@
 
 @protocol BOHLoginViewControllerDelegate <NSObject>
 
-- (void)loginViewController:(BOHLoginViewController *)vc didPerformAction:(BLVLoginSignupAction)action parameters:(NSDictionary *)parameters;
+- (void)loginViewController:(BOHLoginViewController *)vc didPerformAction:(BOHJoinServiceAction)action parameters:(NSDictionary *)parameters;
 
 @end
 
 @interface BOHLoginViewController : UIViewController
 
-- (instancetype)initWithProvider:(BLVLoginSignupProvider)provider options:(BOHJoinServiceOptions *)options;
+- (instancetype)initWithProvider:(BOHJoinServiceProvider)provider options:(BOHJoinServiceOptions *)options;
 
 @property (nonatomic, weak) id<BOHLoginViewControllerDelegate> delegate;
 
