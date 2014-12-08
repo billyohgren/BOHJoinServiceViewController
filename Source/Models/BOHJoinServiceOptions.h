@@ -67,6 +67,8 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) UIColor *backgroundColor;
 
+@property (nonatomic, strong) UIColor *tableViewBackgroundColor;
+
 @property (nonatomic, strong) NSString *emailPlaceholderText;
 @property (nonatomic, strong) NSString *passwordPlaceholderText;
 

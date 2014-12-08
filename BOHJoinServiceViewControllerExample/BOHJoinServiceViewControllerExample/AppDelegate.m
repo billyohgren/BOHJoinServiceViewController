@@ -21,6 +21,7 @@
     
     BOHJoinServiceOptions *options = [[BOHJoinServiceOptions alloc] init];
     options.mainScreenOptions.backgroundColor = [UIColor greenColor];
+    options.mainScreenOptions.buttonLayout = BLVLoginSignupButtonLayoutVertical;
     
     
     BOHJoinServiceViewController *vc = [[BOHJoinServiceViewController alloc] initWithProvider:BLVLoginSignupProviderEmail |

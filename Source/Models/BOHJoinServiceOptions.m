@@ -141,6 +141,13 @@
     return _backgroundColor;
 }
 
+- (UIColor *)tableViewBackgroundColor {
+    if (!_tableViewBackgroundColor) {
+        _tableViewBackgroundColor = [UIColor grayColor];
+    }
+    return _tableViewBackgroundColor;
+}
+
 - (NSString *)emailPlaceholderText {
     if (!_emailPlaceholderText) {
         _emailPlaceholderText = NSLocalizedString(@"Email", @"Log In default email placeholder");

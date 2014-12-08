@@ -7,6 +7,6 @@
 //
 
 typedef NS_ENUM(NSUInteger, BLVLoginSignupButtonLayout) {
-    BLVLoginSignupButtonLayoutHorizontal, // Buttons are stacked on each other
-    BLVLoginSignupButtonLayoutVertical    // Buttons are next to each other
+    BLVLoginSignupButtonLayoutHorizontal, // Buttons are next to each other
+    BLVLoginSignupButtonLayoutVertical // Buttons are stacked on each other
 };

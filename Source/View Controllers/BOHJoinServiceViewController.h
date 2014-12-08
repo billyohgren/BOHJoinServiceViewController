@@ -22,11 +22,6 @@
 
 @interface BOHJoinServiceViewController : UIViewController
 
-/**
-    Options dictionary with keys from BLVLoginSignupDataTypes
- */
-@property (nonatomic, strong) BOHJoinServiceOptions *options;
-
 @property (nonatomic, weak) id<BOHJoinServiceViewControllerDelegate> delegate;
 
 /**

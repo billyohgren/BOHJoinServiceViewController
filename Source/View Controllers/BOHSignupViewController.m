@@ -7,18 +7,29 @@
 //
 
 #import "BOHSignupViewController.h"
+#import "BOHJoinServiceCell.h"
 
 @interface BOHSignupViewController ()
+<
+    UITableViewDataSource,
+    UITableViewDelegate,
+    UITextFieldDelegate,
+    UIGestureRecognizerDelegate
+>
+
+@property (nonatomic, strong) UITableView            *tableView;
+
+@property (nonatomic, strong) BOHJoinServiceCell     *nameCell;
+@property (nonatomic, strong) BOHJoinServiceCell     *emailCell;
+@property (nonatomic, strong) BOHJoinServiceCell     *passwordCell;
 
 @property (nonatomic, assign) BLVLoginSignupProvider provider;
+@property (nonatomic, strong) BOHJoinServiceOptions  *options;
 
 @property (nonatomic, strong) UIButton               *facebookButton;
 @property (nonatomic, strong) UIButton               *twitterButton;
 
 @property (nonatomic, strong) UIButton               *emailButton;
-@property (nonatomic, strong) UITextField            *nameField;
-@property (nonatomic, strong) UITextField            *emailField;
-@property (nonatomic, strong) UITextField            *passwordField;
 
 @property (nonatomic, strong) UIButton               *tosButton;
 
@@ -26,22 +37,30 @@
 
 @implementation BOHSignupViewController
 
-- (instancetype)initWithProvider:(BLVLoginSignupProvider)provider {
+- (instancetype)initWithProvider:(BLVLoginSignupProvider)provider options:(BOHJoinServiceOptions *)options {
     self = [super init];
     if (self) {
-        
+        _provider = provider;
+        _options = options;
+        self.title = _options.signUpScreenOptions.title;
     }
     return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+    self.tableView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = self.options.logInScreenOptions.tableViewBackgroundColor;
+    [self.view addSubview:self.tableView];
 }
 
 #pragma mark - Button Actions
@@ -60,9 +79,9 @@
 
 - (void)emailAction:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(signupViewController:didPerformAction:parameters:)]) {
-        NSDictionary *parameters = @{BLVLoginSignUpParameterName : self.nameField.text,
-                                     BLVLoginSignUpParameterEmail : self.emailField.text,
-                                     BLVLoginSignUpParameterPassword : self.passwordField.text};
+        NSDictionary *parameters = @{BLVLoginSignUpParameterName : self.nameCell.textField.text,
+                                     BLVLoginSignUpParameterEmail : self.emailCell.textField.text,
+                                     BLVLoginSignUpParameterPassword : self.passwordCell.textField.text};
         [self.delegate signupViewController:self didPerformAction:BLVLoginSignupActionSignupWithEmail parameters:parameters];
     }
 }

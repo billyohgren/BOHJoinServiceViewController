@@ -18,6 +18,9 @@
     BOHLoginViewControllerDelegate
 >
 
+@property (nonatomic, assign) BLVLoginSignupProvider  provider;
+@property (nonatomic, strong) BOHJoinServiceOptions *options;
+
 @property (nonatomic, strong) BOHSignupViewController *signupViewController;
 @property (nonatomic, strong) BOHLoginViewController  *loginViewController;
 
@@ -28,7 +31,7 @@
 @property (nonatomic, strong) UIButton                *loginButton;
 @property (nonatomic, strong) UIButton                *skipButton;
 
-@property (nonatomic, assign) BLVLoginSignupProvider  provider;
+@property (nonatomic, strong) UIView                  *loaderView;
 
 @end
 
@@ -102,25 +105,13 @@
 }
 
 - (void)layoutButtonsVertically {
-    
+    self.signupButton.frame = CGRectMake(30.f, 200.f, 60.f, 60.f);
+    self.loginButton.frame = CGRectMake(300.f, 200.f, 60.f, 60.f);
     
 }
 
 - (void)layoutButtonsHorizontally {
-    NSDictionary *views = [self autoLayoutViewsDictionary];
-        
-    NSArray *constraint_H = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[signupButton(100)]"
-                                                                    options:0
-                                                                    metrics:nil
-                                                                      views:views];
     
-    NSArray *constraint_V = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[signupButton(100)]"
-                                                                    options:0
-                                                                    metrics:nil
-                                                                      views:views];
-    
-    [self.signupButton addConstraints:constraint_H];
-    [self.signupButton addConstraints:constraint_V];
 }
 
 - (NSDictionary *)autoLayoutViewsDictionary {
@@ -135,16 +126,70 @@
     return views;
 }
 
+#pragma mark - Public
+
+- (void)showLoader:(BOOL)show {
+    if (show) {
+        [self startLoader];
+    } else {
+        [self stopLoader];
+    }
+}
+
+- (void)displayAlertWithTitle:(NSString *)title message:(NSString *)message {
+    //[[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:self otherButtonTitles:<#(NSString *), ...#>, nil]
+}
+
+#pragma mark - Loader
+
+- (UIView *)loaderView {
+    if (!_loaderView) {
+        _loaderView = [[UIView alloc] initWithFrame:self.view.bounds];
+        [_loaderView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.5f]];
+        UIActivityIndicatorView *indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        indicatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin |
+        UIViewAutoresizingFlexibleRightMargin |
+        UIViewAutoresizingFlexibleTopMargin |
+        UIViewAutoresizingFlexibleBottomMargin;
+        [indicatorView startAnimating];
+        [indicatorView setCenter:_loaderView.center];
+        [_loaderView addSubview:indicatorView];
+        _loaderView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    }
+    return _loaderView;
+}
+
+- (void)startLoader {
+    if (self.loaderView.superview) {
+        return;
+    }
+    self.loaderView.alpha = 0;
+    self.loaderView.frame = self.navigationController.view.bounds;
+    [self.navigationController.view addSubview:self.loaderView];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.loaderView.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)stopLoader {
+    [UIView animateWithDuration:0.3 animations:^{
+        self.loaderView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [self.loaderView removeFromSuperview];
+    }];
+}
+
 #pragma mark - Button actions
 
 - (void)signupAction:(id)sender {
-    self.signupViewController = [[BOHSignupViewController alloc] initWithProvider:self.provider];
+    self.signupViewController = [[BOHSignupViewController alloc] initWithProvider:self.provider options:self.options];
     self.signupViewController.delegate = self;
     [self.navigationController pushViewController:self.signupViewController animated:YES];
 }
 
 - (void)loginAction:(id)sender {
-    self.loginViewController = [[BOHLoginViewController alloc] initWithProvider:self.provider];
+    self.loginViewController = [[BOHLoginViewController alloc] initWithProvider:self.provider options:self.options];
     self.loginViewController.delegate = self;
     [self.navigationController pushViewController:self.loginViewController animated:YES];
 }

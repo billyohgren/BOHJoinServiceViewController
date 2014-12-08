@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BOHJoinServiceDefines.h"
+#import "BOHJoinServiceOptions.h"
 
 @class BOHSignupViewController;
 
@@ -19,7 +20,7 @@
 
 @interface BOHSignupViewController : UIViewController
 
-- (instancetype)initWithProvider:(BLVLoginSignupProvider)provider;
+- (instancetype)initWithProvider:(BLVLoginSignupProvider)provider options:(BOHJoinServiceOptions *)options;
 
 @property (nonatomic, weak) id<BOHSignupViewControllerDelegate> delegate;
 
