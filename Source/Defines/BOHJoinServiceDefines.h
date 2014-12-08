@@ -22,7 +22,10 @@ typedef NS_ENUM(NSInteger, BOHJoinServiceAction) {
     BOHJoinServiceActionSignupWithEmail,
     BOHJoinServiceActionSignupWithFacebook,
     BOHJoinServiceActionSignupWithTwitter,
-    BOHJoinServiceActionSkip
+    BOHJoinServiceActionSkip,
+    BOHJoinServiceActionTappedForgotPassword,
+    BOHJoinServiceActionCanceledForgotPasswordAlert,
+    BOHJoinServiceActionRequestedNewPassword
 };
 
 typedef NS_ENUM(NSInteger, BOHJoinServiceSectionType) {

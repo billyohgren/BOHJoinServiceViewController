@@ -27,6 +27,10 @@
     options.mainScreenOptions.backgroundColor = [UIColor greenColor];
     options.mainScreenOptions.buttonLayout = BLVLoginSignupButtonLayoutVertical;
     
+    CGFloat color = 238.f/255.f;
+    UIColor *backgroundColor = [UIColor colorWithRed:color green:color blue:color alpha:1.f];
+    options.logInScreenOptions.backgroundColor = backgroundColor;
+    options.logInScreenOptions.tableViewBackgroundColor = backgroundColor;
     
     self.joinVC = [[BOHJoinServiceViewController alloc] initWithProvider:BOHJoinServiceProviderEmail |
                                         BOHJoinServiceProviderFacebook
@@ -40,6 +44,6 @@
 
 - (void)joinServiceViewController:(BOHJoinServiceViewController *)vc performedAction:(BOHJoinServiceAction)action parameters:(NSDictionary *)parameters {
     NSLog(@"Join VC did perform action: %li \nwith parameters %@", action, parameters);
-    [self.joinVC showLoader:YES];
+    //[self.joinVC showLoader:YES];
 }
 @end

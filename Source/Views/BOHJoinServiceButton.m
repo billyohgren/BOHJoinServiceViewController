@@ -50,7 +50,10 @@
 }
 
 - (void)applyFacebookStyle {
-    self.backgroundColor = [UIColor redColor];
+    [self setTitle:NSLocalizedString(@"Connect with Facebook", @"Connect with Facebook title") forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.backgroundColor = [UIColor colorWithRed:62.f/255.f green:89.f/255.f blue:152.f/255.f alpha:1.0f];
+    self.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22.f];
 }
 
 - (void)applyTwitterStyle {

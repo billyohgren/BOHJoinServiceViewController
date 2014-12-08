@@ -164,7 +164,7 @@
 
 - (NSString *)forgotPasswordButtonTitle {
     if (!_forgotPasswordButtonTitle) {
-        _forgotPasswordButtonTitle = NSLocalizedString(@"Forgot password?", @"Log In default forgot password title");
+        _forgotPasswordButtonTitle = [NSString stringWithFormat:@"%@?",NSLocalizedString(@"Forgot password", @"Log In default forgot password title")];
     }
     return _forgotPasswordButtonTitle;
 }

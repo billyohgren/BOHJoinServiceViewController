@@ -61,16 +61,6 @@
     return self;
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (self.type == BOHJoinServiceCellTypeButton) {
-        self.button.bounds = self.contentView.bounds;
-    } else {
-        self.textField.bounds = self.contentView.bounds;
-    }
-    
-}
-
 #pragma mark - Properties
 
 - (BOHJoinServiceCellTextField *)textField {
@@ -87,8 +77,8 @@
             [_button removeFromSuperview];
         }
         _button = button;
-        _button.bounds = self.contentView.bounds;
         [self.contentView addSubview:_button];
+        _button.frame = self.contentView.bounds;        
     }
 }
 @end

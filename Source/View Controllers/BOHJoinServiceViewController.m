@@ -78,6 +78,11 @@
     [self layoutButtons:self.options.mainScreenOptions.buttonLayout];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
 #pragma mark - Setup
 
 - (void)setupStyle {

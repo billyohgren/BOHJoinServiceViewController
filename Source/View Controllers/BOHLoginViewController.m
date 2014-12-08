@@ -14,7 +14,8 @@
     UITableViewDataSource,
     UITableViewDelegate,
     UITextFieldDelegate,
-    UIGestureRecognizerDelegate
+    UIGestureRecognizerDelegate,
+    UIAlertViewDelegate
 >
 
 @property (nonatomic, assign) BOHJoinServiceProvider provider;
@@ -32,6 +33,11 @@
 @property (nonatomic, strong) BOHJoinServiceCell     *passwordCell;
 @property (nonatomic, strong) BOHJoinServiceCell     *loginButtonCell;
 @property (nonatomic, strong) UIButton               *emailButton;
+
+@property (nonatomic, strong) UIView                 *emailSectionHeaderView;
+@property (nonatomic, strong) UILabel                *emailSectionHeaderLabel;
+
+@property (nonatomic, strong) UILabel                *forgotPasswordLabel;
 
 @property (nonatomic, strong) NSArray                *tableViewSections;
 
@@ -63,6 +69,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = self.options.logInScreenOptions.tableViewBackgroundColor;
+    self.view.backgroundColor = self.options.logInScreenOptions.backgroundColor;
     [self.view addSubview:self.tableView];
 }
 
@@ -159,6 +166,69 @@
     return _loginButtonCell;
 }
 
+- (UILabel *)emailSectionHeaderLabel {
+    if (!_emailSectionHeaderLabel) {
+        _emailSectionHeaderLabel = [[UILabel alloc]init];
+        _emailSectionHeaderLabel.textAlignment = NSTextAlignmentCenter;
+        _emailSectionHeaderLabel.text = NSLocalizedString(@"Or", @"Or label in login view");
+        _emailSectionHeaderLabel.font = [UIFont fontWithName:@"Avenir-Light" size:16.f];
+        UIColor *grayColor = [UIColor colorWithRed:171.f/255.f green:170.f/255.f blue:171.f/255.f alpha:1];
+        _emailSectionHeaderLabel.textColor = grayColor;
+        _emailSectionHeaderLabel.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin);
+        [_emailSectionHeaderLabel sizeToFit];
+    }
+    return _emailSectionHeaderLabel;
+}
+
+- (UIView *)emailSectionHeaderView {
+    if (!_emailSectionHeaderView) {
+        _emailSectionHeaderView = [[UIView alloc] initWithFrame:(CGRect){0.0f, 0.0f, self.tableView.bounds.size.width, 40.0f}];
+        _emailSectionHeaderView.backgroundColor = self.options.logInScreenOptions.backgroundColor;
+        _emailSectionHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _emailSectionHeaderView.clipsToBounds = YES;
+        
+        CGPoint emailSectionHeaderLabelCenter = self.emailSectionHeaderLabel.center;
+        emailSectionHeaderLabelCenter.x = _emailSectionHeaderView.center.x;
+        emailSectionHeaderLabelCenter.y = _emailSectionHeaderView.bounds.size.height / 2.0f;
+        self.emailSectionHeaderLabel.center = emailSectionHeaderLabelCenter;
+        [_emailSectionHeaderView addSubview:self.emailSectionHeaderLabel];
+        
+        UIColor *grayColor = [UIColor colorWithRed:171.f/255.f green:170.f/255.f blue:171.f/255.f alpha:1];
+        
+        
+        CGFloat rightDividerXOrigin;
+        CGFloat dashWidth;
+        
+        UIView *leftDivider = [[UIView alloc]initWithFrame:(CGRect){16.0f, 20.0f, dashWidth - 32.0f, 0.5f}];
+        leftDivider.backgroundColor = grayColor;
+        [_emailSectionHeaderView addSubview:leftDivider];
+        
+        UIView *rightDivider = [[UIView alloc]initWithFrame:(CGRect){rightDividerXOrigin, 20.0f, dashWidth - 32.0f, 0.5f}];
+        rightDivider.backgroundColor = grayColor;
+        [_emailSectionHeaderView addSubview:rightDivider];
+    }
+    return _emailSectionHeaderView;
+}
+
+- (UILabel *)forgotPasswordLabel {
+    if (!_forgotPasswordLabel) {
+        _forgotPasswordLabel = [[UILabel alloc] initWithFrame:CGRectMake(0., 0.f, self.tableView.bounds.size.width, 80.f)];
+        _forgotPasswordLabel.textAlignment = NSTextAlignmentCenter;
+        NSString *forgotPasswordString = self.options.logInScreenOptions.forgotPasswordButtonTitle;
+        _forgotPasswordLabel.font = [UIFont fontWithName:@"Avenir-Light" size:16.f];
+        _forgotPasswordLabel.text = forgotPasswordString;
+        UIColor *grayColor = [UIColor colorWithRed:171.f/255.f green:170.f/255.f blue:171.f/255.f alpha:1];
+        _forgotPasswordLabel.textColor = grayColor;
+        [_forgotPasswordLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forgotPasswordAction:)]];
+        _forgotPasswordLabel.userInteractionEnabled = YES;
+        _forgotPasswordLabel.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin);
+        CGPoint center = _forgotPasswordLabel.center;
+        center.x = self.tableView.center.x;
+        _forgotPasswordLabel.center = center;
+    }
+    return _forgotPasswordLabel;
+}
+
 #pragma mark - Button Actions 
 
 - (void)facebookAction:(id)sender {
@@ -191,6 +261,20 @@
     
 }
 
+- (void)forgotPasswordAction:(id)sender {
+    
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:self.options.logInScreenOptions.forgotPasswordAlertTitle
+                                                     message:self.options.logInScreenOptions.forgotPasswordAlertMessage
+                                                    delegate:self
+                                           cancelButtonTitle:self.options.logInScreenOptions.forgotPasswordAlertCancelButtonTitle
+                                           otherButtonTitles:self.options.logInScreenOptions.forgotPasswordAlertSendButtonTitle,nil];
+    
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField* tf = [alert textFieldAtIndex:0];
+    tf.keyboardType = UIKeyboardTypeEmailAddress;
+    [alert show];
+}
+
 #pragma mark - Field validation
 
 - (BOOL)emailFieldsPassedValidation {
@@ -206,6 +290,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSArray *items = [self.tableViewSections objectAtIndex:section];
     return items.count;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return self.forgotPasswordLabel;
 }
 
 #pragma mark - UITableViewDelegate
@@ -249,6 +337,37 @@
         [self emailAction:nil]; // Log In
     }
     return YES;
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(loginViewController:didPerformAction:parameters:)]) {
+            [self.delegate loginViewController:self didPerformAction:BOHJoinServiceActionCanceledForgotPasswordAlert parameters:nil];
+        }
+        
+    } else {
+        
+        NSString *email = [[alertView textFieldAtIndex:0] text];
+        
+        if (email.length > 0) {
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(loginViewController:didPerformAction:parameters:)]) {
+                NSDictionary *parameters = @{BLVLoginSignUpParameterEmail : email};
+                [self.delegate loginViewController:self didPerformAction:BOHJoinServiceActionRequestedNewPassword parameters:parameters];
+            }
+            
+        }else {
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"All fields are mandatory", nil)
+                                        message:nil
+                                       delegate:nil
+                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                              otherButtonTitles:nil] show];
+        }
+    }
 }
 
 @end
