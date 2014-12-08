@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@interface BOHJoinServiceCellTextField : UITextField
+@end
+
 @interface BOHJoinServiceCell : UITableViewCell
+
+@property (nonatomic, strong) BOHJoinServiceCellTextField *textField;
 
 @end

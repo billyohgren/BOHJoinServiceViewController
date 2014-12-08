@@ -19,6 +19,8 @@
 		28C5A10B1A35BEBC00F6DCCD /* BOHJoinServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C5A1041A35BEBC00F6DCCD /* BOHJoinServiceViewController.m */; };
 		28C5A10C1A35BEBC00F6DCCD /* BOHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C5A1061A35BEBC00F6DCCD /* BOHLoginViewController.m */; };
 		28C5A10D1A35BEBC00F6DCCD /* BOHSignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C5A1081A35BEBC00F6DCCD /* BOHSignupViewController.m */; };
+		28C5A1111A35C84100F6DCCD /* BOHJoinServiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C5A1101A35C84100F6DCCD /* BOHJoinServiceCell.m */; };
+		28C5A1161A35D4CF00F6DCCD /* BOHJoinServiceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C5A1151A35D4CF00F6DCCD /* BOHJoinServiceButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,10 @@
 		28C5A1061A35BEBC00F6DCCD /* BOHLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOHLoginViewController.m; sourceTree = "<group>"; };
 		28C5A1071A35BEBC00F6DCCD /* BOHSignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOHSignupViewController.h; sourceTree = "<group>"; };
 		28C5A1081A35BEBC00F6DCCD /* BOHSignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOHSignupViewController.m; sourceTree = "<group>"; };
+		28C5A10F1A35C84100F6DCCD /* BOHJoinServiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BOHJoinServiceCell.h; path = Views/BOHJoinServiceCell.h; sourceTree = "<group>"; };
+		28C5A1101A35C84100F6DCCD /* BOHJoinServiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BOHJoinServiceCell.m; path = Views/BOHJoinServiceCell.m; sourceTree = "<group>"; };
+		28C5A1141A35D4CF00F6DCCD /* BOHJoinServiceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BOHJoinServiceButton.h; path = Views/BOHJoinServiceButton.h; sourceTree = "<group>"; };
+		28C5A1151A35D4CF00F6DCCD /* BOHJoinServiceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BOHJoinServiceButton.m; path = Views/BOHJoinServiceButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +145,7 @@
 		28C5A0FA1A35BEBC00F6DCCD /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				28C5A10E1A35C81200F6DCCD /* Views */,
 				28C5A0FB1A35BEBC00F6DCCD /* Defines */,
 				28C5A0FF1A35BEBC00F6DCCD /* Models */,
 				28C5A1021A35BEBC00F6DCCD /* View Controllers */,
@@ -177,6 +184,17 @@
 				28C5A1081A35BEBC00F6DCCD /* BOHSignupViewController.m */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		28C5A10E1A35C81200F6DCCD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				28C5A10F1A35C84100F6DCCD /* BOHJoinServiceCell.h */,
+				28C5A1101A35C84100F6DCCD /* BOHJoinServiceCell.m */,
+				28C5A1141A35D4CF00F6DCCD /* BOHJoinServiceButton.h */,
+				28C5A1151A35D4CF00F6DCCD /* BOHJoinServiceButton.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,12 +299,14 @@
 			files = (
 				28C5A10B1A35BEBC00F6DCCD /* BOHJoinServiceViewController.m in Sources */,
 				28C5A0DD1A35BE8600F6DCCD /* ViewController.m in Sources */,
+				28C5A1111A35C84100F6DCCD /* BOHJoinServiceCell.m in Sources */,
 				28C5A10D1A35BEBC00F6DCCD /* BOHSignupViewController.m in Sources */,
 				28C5A0DA1A35BE8600F6DCCD /* AppDelegate.m in Sources */,
 				28C5A10C1A35BEBC00F6DCCD /* BOHLoginViewController.m in Sources */,
 				28C5A1091A35BEBC00F6DCCD /* BOHJoinServiceDefines.m in Sources */,
 				28C5A10A1A35BEBC00F6DCCD /* BOHJoinServiceOptions.m in Sources */,
 				28C5A0D71A35BE8600F6DCCD /* main.m in Sources */,
+				28C5A1161A35D4CF00F6DCCD /* BOHJoinServiceButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
