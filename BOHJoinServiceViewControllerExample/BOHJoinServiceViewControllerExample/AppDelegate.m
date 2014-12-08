@@ -13,6 +13,8 @@
 <
     BOHJoinServiceViewControllerDelegate
 >
+
+@property (nonatomic, strong) BOHJoinServiceViewController *joinVC;
 @end
 
 @implementation AppDelegate
@@ -26,11 +28,11 @@
     options.mainScreenOptions.buttonLayout = BLVLoginSignupButtonLayoutVertical;
     
     
-    BOHJoinServiceViewController *vc = [[BOHJoinServiceViewController alloc] initWithProvider:BOHJoinServiceProviderEmail |
+    self.joinVC = [[BOHJoinServiceViewController alloc] initWithProvider:BOHJoinServiceProviderEmail |
                                         BOHJoinServiceProviderFacebook
                                                                                       options:options];
-    vc.delegate = self;
-    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:vc];
+    self.joinVC.delegate = self;
+    UINavigationController *navVC = [[UINavigationController alloc] initWithRootViewController:self.joinVC];
     self.window.rootViewController = navVC;
     
     return YES;
@@ -38,5 +40,6 @@
 
 - (void)joinServiceViewController:(BOHJoinServiceViewController *)vc performedAction:(BOHJoinServiceAction)action parameters:(NSDictionary *)parameters {
     NSLog(@"Join VC did perform action: %li \nwith parameters %@", action, parameters);
+    [self.joinVC showLoader:YES];
 }
 @end

@@ -190,12 +190,28 @@
 }
 
 - (void)emailAction:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(signupViewController:didPerformAction:parameters:)]) {
-        NSDictionary *parameters = @{BLVLoginSignUpParameterName : self.nameCell.textField.text,
-                                     BLVLoginSignUpParameterEmail : self.emailCell.textField.text,
-                                     BLVLoginSignUpParameterPassword : self.passwordCell.textField.text};
-        [self.delegate signupViewController:self didPerformAction:BOHJoinServiceActionSignupWithEmail parameters:parameters];
+    
+    if ([self emailFieldsPassedValidation]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(signupViewController:didPerformAction:parameters:)]) {
+            NSDictionary *parameters = @{BLVLoginSignUpParameterName : self.nameCell.textField.text,
+                                         BLVLoginSignUpParameterEmail : self.emailCell.textField.text,
+                                         BLVLoginSignUpParameterPassword : self.passwordCell.textField.text};
+            [self.delegate signupViewController:self didPerformAction:BOHJoinServiceActionSignupWithEmail parameters:parameters];
+        }
+    } else {
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"All fields are mandatory", nil)
+                                    message:nil
+                                   delegate:nil
+                          cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                          otherButtonTitles:nil] show];
     }
+    
+}
+
+#pragma mark - Field validation
+
+- (BOOL)emailFieldsPassedValidation {
+    return (self.nameCell.textField.text.length > 0 && self.emailCell.textField.text.length > 0 && self.passwordCell.textField.text.length > 0);
 }
 
 #pragma mark - UITableViewDataSource
