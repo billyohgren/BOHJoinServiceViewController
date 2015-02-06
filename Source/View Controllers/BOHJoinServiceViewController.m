@@ -60,11 +60,13 @@
     self.signupButton = [[UIButton alloc] init];
     [self.signupButton addTarget:self action:@selector(signupAction:) forControlEvents:UIControlEventTouchUpInside];
     self.signupButton.translatesAutoresizingMaskIntoConstraints = NO;
+    self.signupButton.backgroundColor = [UIColor blueColor];
     [self.view addSubview:self.signupButton];
     
     self.loginButton = [[UIButton alloc] init];
     [self.loginButton addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
     self.loginButton.translatesAutoresizingMaskIntoConstraints = NO;
+    self.loginButton.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.loginButton];
     
     if (self.options.mainScreenOptions.allowSkipLoginSignUp) {
@@ -112,11 +114,18 @@
 - (void)layoutButtonsVertically {
     self.signupButton.frame = CGRectMake(30.f, 200.f, 60.f, 60.f);
     self.loginButton.frame = CGRectMake(300.f, 200.f, 60.f, 60.f);
-    
 }
 
 - (void)layoutButtonsHorizontally {
+    CGFloat cursor = CGRectGetHeight(self.view.bounds);
     
+    [self.loginButton sizeToFit];
+    cursor -= CGRectGetHeight(self.loginButton.bounds);
+    self.loginButton.frame = CGRectMake(CGRectGetMidX(self.view.bounds)-(self.loginButton.frame.size.width)/2, cursor, self.loginButton.frame.size.width, self.loginButton.frame.size.height);
+    
+    [self.signupButton sizeToFit];
+    cursor -= CGRectGetHeight(self.signupButton.bounds);
+    self.signupButton.frame = CGRectMake(CGRectGetMidX(self.view.bounds)-(self.signupButton.frame.size.width)/2, cursor, self.signupButton.frame.size.width, self.signupButton.frame.size.height);
 }
 
 - (NSDictionary *)autoLayoutViewsDictionary {

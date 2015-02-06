@@ -25,7 +25,7 @@
     
     BOHJoinServiceOptions *options = [[BOHJoinServiceOptions alloc] init];
     options.mainScreenOptions.backgroundColor = [UIColor greenColor];
-    options.mainScreenOptions.buttonLayout = BLVLoginSignupButtonLayoutVertical;
+    options.mainScreenOptions.buttonLayout = BLVLoginSignupButtonLayoutHorizontal;
     
     CGFloat color = 238.f/255.f;
     UIColor *backgroundColor = [UIColor colorWithRed:color green:color blue:color alpha:1.f];
